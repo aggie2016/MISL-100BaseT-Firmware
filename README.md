@@ -198,14 +198,14 @@ interface (CLI) that exposes numerous features of the on-board Ethernet Control 
 				const PermLevel permissionsRequired;
 			} Command;
 			
-		EXAMPLE (No custom input):
-		static const Command Sub_Menu[3] = {
+EXAMPLE (No custom input):
+static const Command Sub_Menu[3] = {
 		{"command-text3", 	"some help text 3", TERMINATING_COMMMAND, 	3,	false, 	COM_FUNCTIONHERE, 	{"Some parameter", 0x00, 0xFF},	NO_CHILD_MENU,	ReadOnlyUser},
 		{"command-text4", 	"some help text 4", TERMINATING_COMMMAND, 	3,	false, 	COM_FUNCTIONHERE, 	{"Some parameter", 0x00, 0xFF},	NO_CHILD_MENU,	Administrator},
 		{0,0,0,0,0,0,0}
 		};
 		
-		static const Command Sample_Options[3] = {
+static const Command Sample_Options[3] = {
 		{"command-text", 	"some help text",  	HAS_CHILD, 				3,	false, 	NotImplementedFunction, {"Some parameter", 0x00, 0xFF},	Sub_Menu,		ReadOnlyUser},
 		{"command-text2", 	"some help text 2", TERMINATING_COMMMAND, 	3,	false, 	COM_FUNCTIONHERE, 		{"Some parameter", 0x00, 0xFF},	NO_CHILD_MENU,	ModifySystem},
 		{0,0,0,0,0,0,0}
@@ -216,13 +216,13 @@ interface (CLI) that exposes numerous features of the on-board Ethernet Control 
 		//command-text command-text3
 		//command-text command-text4
 		
-		EXAMPLE (custom input):
-		static const Command Custom_Sub_Menu[2] = {
+EXAMPLE (custom input):
+static const Command Custom_Sub_Menu[2] = {
 		{"<hexadecimal value>", 	"a number between 0x00 and 0xFF", TERMINATING_COMMMAND, 	1,	true, 	COM_FUNCTIONHERE, 	EMPTY_STATIC_PARAMS,	NO_CHILD_MENU,	ReadOnlyUser},
 		{0,0,0,0,0,0,0}
 		};
 		
-		static const Command Sample_Options[2] = {
+static const Command Sample_Options[2] = {
 		{"command-text", 	"some help text",  	HAS_CHILD, 				3,	false, 	NotImplementedFunction, {"Some parameter", 0x00, 0xFF},	Custom_Sub_Menu,		ReadOnlyUser},
 		{0,0,0,0,0,0,0}
 		};
@@ -247,8 +247,3 @@ sequentially and report to the user if any status change has been detected.
 
 [9] === FREE RTOS INITIALIZATION [freertos_init] (.c/.h) ===
 This file is the main entry point for the EEE 100BaseTX firmware. Each interface is individually configured before loading any stored configuration from EEPROM. Each task can be enabled or disabled from freertos_init.h for debugging. 
-		
-		
-		
-			
-		
