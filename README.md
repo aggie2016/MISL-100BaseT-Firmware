@@ -51,7 +51,8 @@ Since all of the executed code in this firmware (after boot) utitlizes FreeRTOS 
 EEE Firmware v1.1.12 includes a brief set of functions that display a progress bar during the execution of a long-running task. To add a progress bar in lieu of standard notification text, use the CreateProgressBar function. This function will return a progress pointer that is used by the UpdateProgressBar functions. To increment the progress bar, pass the pointer along with the PBarAction parameter 'Increment'. No additional text should be printed to the command line while this bar is displaying progress.
 	
 [1.4] -- Current CLI Functions --
-Commands currently supported by this version of the EEE 100BaseTX Firmware are listed below. For an expanded description of each function, refer directly to the source code or to the doxygen homepage stored under 'html/index.html'. 
+Commands currently supported by this version of the EEE 100BaseTX Firmware are listed below. For an expanded description of each function, refer directly to the source code or to the doxygen homepage stored under 'html/index.html'.
+
 		[1.4.1] COM_WriteToEEPROM
 		[1.4.2]	COM_SaveSwitchConfiguration
 		[1.4.3] COM_ReinitializeEEPROM
