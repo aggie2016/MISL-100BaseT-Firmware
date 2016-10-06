@@ -157,29 +157,30 @@ In order to make this firmware easily portable to other Micrel Ethernet Controll
 	
 [5.4] -- Expanding upon the Command Line --
 Should a need arise to add functionality to the command line interface, simply copy the structure format below and add it to the interpreter task.h file. Each filed in the structure array must be filled in to avoid runtime errors. Otherwise, to inform the interpreter of the new commmand's existence, simply link it to one of the existing parent commands by passing a reference as indicated below.
-	STRUCTURE FORMAT:
-		typedef struct Command {
-			//Command string that will be entered by the user. Should be a SINGLE (possibly hyphenated) word.
-			const char * const text;
-			//Help text that will be displayed when the user appends a '?' after the currently entered command word
-			const char * const help;
-			//Designates this command as an executable (terminating) command. Ensure that functions labeled this way have function pointers attached to them
-			const bool isExecutable;
-			//Number of statically defined (in the command's definition) or custom (user entered parameters) 
-			const int paramsRequired;
-			//Designates this command as requiring custom input from the command line. The user will not enter the command text defined but their own input. 
-			const bool paramsUserProvided;
-			//A function to call when the command is issued. COMMAND MUST BE TERMINATING_COMMMAND TO CALL FUNCTION.
-			bool (*func)(char**);
-			//Predefined function parameters that are passed to the function pointer when called. If any custom user input is passed to the command line, it will be combined with these values
-			const char *functionParams[15];
-			//A sub-menu to link to this command. If this value is not null, you must set the isExecutable value to HAS_CHILD.
-			const struct Command *childCommand;
-			//A permissions level that restricts use of this command to authorized users.
-			const PermLevel permissionsRequired;
-			} Command;
+
+###STRUCTURE FORMAT:
+	typedef struct Command {
+		//Command string that will be entered by the user. Should be a SINGLE (possibly hyphenated) word.
+		const char * const text;
+		//Help text that will be displayed when the user appends a '?' after the currently entered command word
+		const char * const help;
+		//Designates this command as an executable (terminating) command. Ensure that functions labeled this way have function pointers attached to them
+		const bool isExecutable;
+		//Number of statically defined (in the command's definition) or custom (user entered parameters) 
+		const int paramsRequired;
+		//Designates this command as requiring custom input from the command line. The user will not enter the command text defined but their own input. 
+		const bool paramsUserProvided;
+		//A function to call when the command is issued. COMMAND MUST BE TERMINATING_COMMMAND TO CALL FUNCTION.
+		bool (*func)(char**);
+		//Predefined function parameters that are passed to the function pointer when called. If any custom user input is passed to the command line, it will be combined with these values
+		const char *functionParams[15];
+		//A sub-menu to link to this command. If this value is not null, you must set the isExecutable value to HAS_CHILD.
+		const struct Command *childCommand;
+		//A permissions level that restricts use of this command to authorized users.
+		const PermLevel permissionsRequired;
+		} Command;
 			
-EXAMPLE (No custom input):
+###EXAMPLE (No custom input):
 	static const Command Sub_Menu[3] = {
 		{"command-text3", 	"some help text 3", TERMINATING_COMMMAND, 	3,	false, 	COM_FUNCTIONHERE, 	{"Some parameter", 0x00, 0xFF},	NO_CHILD_MENU,	ReadOnlyUser},
 		{"command-text4", 	"some help text 4", TERMINATING_COMMMAND, 	3,	false, 	COM_FUNCTIONHERE, 	{"Some parameter", 0x00, 0xFF},	NO_CHILD_MENU,	Administrator},
@@ -197,7 +198,7 @@ EXAMPLE (No custom input):
 		//command-text command-text3
 		//command-text command-text4
 		
-EXAMPLE (custom input):
+###EXAMPLE (custom input):
 	static const Command Custom_Sub_Menu[2] = {
 		{"<hexadecimal value>", 	"a number between 0x00 and 0xFF", TERMINATING_COMMMAND, 	1,	true, 	COM_FUNCTIONHERE, 	EMPTY_STATIC_PARAMS,	NO_CHILD_MENU,	ReadOnlyUser},
 		{0,0,0,0,0,0,0}
