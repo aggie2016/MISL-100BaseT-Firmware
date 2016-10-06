@@ -7,7 +7,7 @@ MISL 100BaseTX Switch Layer Firmware
 RELEASE v1.1.12
 =====================================================================================================================================
 
-![Console Screenshot](console.png?raw=true "CLI Welcome Message")
+![Console Screenshot](console.jpg?raw=true "CLI Welcome Message")
 
 ==== KNOWN BUGS ====
 - [1 - 9/22/2016] Cascading two 100BaseTX layers may require a flush of the dynamic MAC table in order to achieve connectivity between the two layers in question. As of yet, this appears to be a software bug but may have a hardware component (such as the capacitive coupling from the expansion port to P5 of the KSZ8895MLUB Ethernet controller). The recommmended fix for this bug is to simply connect/disconnect the cable until the dynamic MAC table, accessible through the command 'system show dyn-mac-table' shows entries for 'exp-port'. This should indicate that the system now recognizes the existence of other connected nodes on a cascaded layer.
