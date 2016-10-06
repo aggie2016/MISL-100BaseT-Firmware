@@ -6,7 +6,7 @@ TM4C123GH6PM ARM Cortex M4F Tiva C Series Microcontroller, Microchip AA1024 EEPR
 <p><b>Connectivity:</b> USB/I2C Configuration, 4x RJ-45 Connections</p>
 <p><b>Throughput:</b> 63 Mbps (100 Mbps MAX)</p>
 <p><b>FLASH:</b> 256 KB (52 kB used by firmware) | <b>EEPROM:</b> 125 KB (AA1024) | <b>SRAM:</b> 32 kB (24 kB used by firmware)</p>
-                                                                                     
+
 =====================================================================================================================================
 Eagle Embedded Engineering
 MISL 100BaseTX Switch Layer Firmware 
@@ -24,6 +24,9 @@ RELEASE v1.1.12
 ##INTRODUCTION
 An embedded real-time control package to allow observability and management of four 100BaseTX ports. This system utilizes a command-line
 interface (CLI) that exposes numerous features of the on-board Ethernet Control for easy configuration. Each of the files included in this release is briefly described below in order to provide the reader with a high-level understanding of each module.
+
+##FreeRTOS Integration
+In order to provide a non-blocking solution for this new MISL layer, the project implements several tasks under the FreeRTOS real-time operating system. Each task serves a dedicated role and blocks all access to peripherals while they are in use throgh the use of mutexes. Tasks are moved from created to ready by placing objects into allocated queues. For the most part, all tasks in this firmware rely on interrupt-driven queues. The interpreter task, as an example pends on the user placing a newline character in the UART RX buffer before attempting to decipher the command issued. Once an entered string has been validated as a command, the appropriate function within the firmware is executed. Since an RTOS is used, all long-running tasks are designed to pause briefly in order to allow other tasks to report back to the kernel. If at any time a task is blocked from execution for more than two seconds, the Tiva C has been preprogrammed with an active watchdog timer that will reset the system. During boot, all saved configuration settings from EEPROM are loaded into local memory. Since this is a long running operation, status is continually reported to the user's terminal window (if opened).
 
 ##COMMAND FUNCTIONS [command_functions] (.c/.h)
 This file contains all functions called at run-time by either CLI or I2C commands. All functions that are intended to be used by the command line adopt the format COM_<Function Name>, take an array of pointers-to-char, and return a boolean as the result of execution. This format must be followed in order to avoid incompatibility with	the UART interpreter task (described later in this document). Each function is described below
