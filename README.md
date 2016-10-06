@@ -90,6 +90,7 @@ These files contain functions that eliminate the need to directly manage the har
 	
 [2.1] -- Included Functions --
 The following functions provide an easy interface with the hardware on the switch PCB. They are:
+
 		[2.1.1] - EEPROMSingleWrite
 		[2.1.2] - EEPROMSingleRead
 		[2.1.3] - EEPROMBulkWrite
@@ -111,12 +112,14 @@ The logger function runs as a FreeRTOS task to allow asynchronous storage of sys
 	
 [3.1] -- Format of Log Entry --
 Each stored log entry consists of the following format:
-		[4 bytes] System Time Stamp
-		[1 byte] Event Code
+
+	[4 bytes] System Time Stamp
+	[1 byte] Event Code
 	A maximum of 400 entries are stored before the system begins overwriting old entries.
 	
 [3.2] -- Currently Supported/Logged Events --
 A maximum of 32 events can be logged by the system. Currently, these 10 are used to notify an authorized user what has happened since his last login.
+
 		[3.2.1] - SystemRestarted
 		[3.2.2] - StackOverflow
 		[3.2.3] - EEPROMWriteOP
@@ -141,6 +144,7 @@ For the purposes of demonstration, the layer can be controlled over I2C as a sla
 This switch layer uses an independent RTOS task that takes direct input from the UART0 interrupt and tokenizes the input. This information is then checked word by word to see if a valid command string has been entered. If the currently checked word matches a branch of the linked list (that makes up the command-line), the task saves all entered parameters and moves down the tree to the next valid word. This process is illustrated below:
 	
 [5.1] -- Linked List Architecture --
+
 	(1) COMMAND [parameters = 2, executable = false, sub-menu = OPTIONS]
 		|- OPTIONS [parameters = 0, executable = false, sub-menu = SETTINGS]
 			|- SETTINGS [parameters = 2, executable = true, function_pointer = Run()]
@@ -176,13 +180,13 @@ Should a need arise to add functionality to the command line interface, simply c
 			} Command;
 			
 EXAMPLE (No custom input):
-static const Command Sub_Menu[3] = {
+	static const Command Sub_Menu[3] = {
 		{"command-text3", 	"some help text 3", TERMINATING_COMMMAND, 	3,	false, 	COM_FUNCTIONHERE, 	{"Some parameter", 0x00, 0xFF},	NO_CHILD_MENU,	ReadOnlyUser},
 		{"command-text4", 	"some help text 4", TERMINATING_COMMMAND, 	3,	false, 	COM_FUNCTIONHERE, 	{"Some parameter", 0x00, 0xFF},	NO_CHILD_MENU,	Administrator},
 		{0,0,0,0,0,0,0}
 		};
 		
-static const Command Sample_Options[3] = {
+	static const Command Sample_Options[3] = {
 		{"command-text", 	"some help text",  	HAS_CHILD, 				3,	false, 	NotImplementedFunction, {"Some parameter", 0x00, 0xFF},	Sub_Menu,		ReadOnlyUser},
 		{"command-text2", 	"some help text 2", TERMINATING_COMMMAND, 	3,	false, 	COM_FUNCTIONHERE, 		{"Some parameter", 0x00, 0xFF},	NO_CHILD_MENU,	ModifySystem},
 		{0,0,0,0,0,0,0}
@@ -194,12 +198,12 @@ static const Command Sample_Options[3] = {
 		//command-text command-text4
 		
 EXAMPLE (custom input):
-static const Command Custom_Sub_Menu[2] = {
+	static const Command Custom_Sub_Menu[2] = {
 		{"<hexadecimal value>", 	"a number between 0x00 and 0xFF", TERMINATING_COMMMAND, 	1,	true, 	COM_FUNCTIONHERE, 	EMPTY_STATIC_PARAMS,	NO_CHILD_MENU,	ReadOnlyUser},
 		{0,0,0,0,0,0,0}
 		};
 		
-static const Command Sample_Options[2] = {
+	static const Command Sample_Options[2] = {
 		{"command-text", 	"some help text",  	HAS_CHILD, 				3,	false, 	NotImplementedFunction, {"Some parameter", 0x00, 0xFF},	Custom_Sub_Menu,		ReadOnlyUser},
 		{0,0,0,0,0,0,0}
 		};
