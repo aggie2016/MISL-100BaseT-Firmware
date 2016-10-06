@@ -1,64 +1,26 @@
 # MISL-100BaseT-Firmware
 Firmware for the MISL 100BaseT switching layer. Provides the user with a CLI for serviceability and control. Built on the open-source FreeRTOS Real Time Operating System
-
-
- +MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMN`                                                                                         
-  +MMo+++++++++++++++++++++++++++++++++++++++++dMN`       ossssssssssss-     /sssss:        `:oyhhhyo:`    `sssss-        ossssssssssss:    
-  +MM.          ...-                           yMN`       dMMMMMMMMMMMM+    .MMMMMMN`     `sNMMMMMMMMMN+   .MMMMM/        mMMMMMMMMMMMM+    
-  +MM.        /smNNNys                         yMN`       dMMMMh+++++++-    hMMMMMMMs    `dMMMMd/-/mMMMMs  .MMMMM/        mMMMMh+++++++-    
-  +MM.       +hM/` -dmhhMMMMMMMMMMMMMMMM-      yMN`       dMMMMy::::::     /MMMydMMMM-   sMMMMN`   .so++/  .MMMMM/        mMMMMy::::::      
-  +MM.       /NN`   sMhhMMMMMMMMMMMMMMMm       yMN`       dMMMMMMMMMMN    `NMMN.-MMMMm   NMMMMd  yhhhhhhh` .MMMMM/        mMMMMMMMMMMm      
-  +MM.  `/yyo-+MmhymmdsNMMMMMMMMMMMMMMMo       yMN`       dMMMMmyyyyys    sMMMdooNMMMMo  mMMMMm  mMMMMMMM` .MMMMM/        mMMMMdyyyyys      
-  +MM.  +m.`sd`.odsdydMMMhooooooooooooo.       yMN`       dMMMMo         -MMMMMMMMMMMMN. oMMMMM+ ..:MMMMM` .MMMMM/        mMMMM+            
-  +MM.  -dysho `NMMMMMMMM:                     yMN`       dMMMMMNNNNNNN/ dMMMy++++dMMMMh  yMMMMMNdmMMMMMM` .MMMMMMMMMMMN: mMMMMNNNNNNNN+    
-  +MM.    ..`  :ddddddddh`                     yMN`       dMMMMMMMMMMMM++MMMm`    .NMMMM/  -yNMMMMMMmoNMM` .MMMMMMMMMMMM: mMMMMMMMMMMMM+    
-  +MM.   dMhhh yMMMMMMMMMMMMMMMMMMMN`.dhhh/    yMN`       .............`....`      ......     .:::-`  ...   ............` .............`    
-  +MM.  .MNhh.`NMMMMMMMMMMMMMMMMMMMh oMdo/     yMN`       /yyyyyys syyy. .yyys -yyyyyy+` +yyyyyyo yyyyys/`  syyyys/`  oyyyyyyo`syyyys/`     
-  +MM.  +Mdoo-/MMMMMMMMMMMMMMMMMMMM/ mMo+/     yMN`       sMMhooo+ mMMMh hMMMm /MMh+sMMy hMMyooo/ MMMosNMm- NMMssNMN/ hMMyooo/`NMMosNMN-    
-  +MM.  -::::`yMMMMMMMMh+++++++++++``oooo+     yMN`       sMMmddd  mMyMMoMhNMm /MMmhmMm- hMMmddh  MMM` oMMd NMM. :MMN hMMmddh `NMN` +MMd    
-  +MM.       `MMMMMMMMM-                       yMN`       sMMs:::  mM+yMMM-NMm /MMy:+MMd hMMo:::  MMM` yMMy NMM. oMMd hMMo::: `NMN` yMMy    
-  +MM.       /MMMMMMMMm                        yMN`       sMMNmmmh`mM+.MMy NMm /MMNdmMMh hMMNmmmy MMMmNMNs` NMMmNMMy. hMMNmmmy`NMMmNMNs`    
-  +MM.       hMMMMMMMMNddddddddddddds          yMN`       -::::::: ::. -:` ::: `::::::.  -::::::- :::::-`   :::::-`   -::::::- :::::-`      
-  +MM.      `NMMMMMMMMMMMMMMMMMMMMMM+          yMN`       `-----.`--  `-.  `---`  .-. .-.  -- `-----.`-----.`----.`  --` --` `-.   ---`     
-  +MM.      /MMMMMMMMMMMMMMMMMMMMMMM.          yMN`       /MMdhho:MMd.+Ms oMNyNN+ hMd dMM+ MM`oMMhhh++MMdhh+/MMhhMN+`MM+.MMm-:Mh +NNymMs    
-  +MM.      smmmmmmmmmmmmmmmmmmmmmmy           yMN`       /MMhhy`:MmNNyMs:MM::sys hMd dMmMyNM`oMMhhy +MMhhy /MMysMMo`MM+.MNNNsMh.MM+-oys`   
-  +MM.                                         yMN`       /MM+//.:Mh-mMMs-MMo/dMN hMd dM-sMMM`oMN///`+MN///`/MM/NMh `MM+.MN.dMMh`NMy:hMM.   
-  +MM.                                         yMN`       :ddddds-ds `hd+ -ymmdyd sdy yd. /dd`+ddddd+/dddddo:dd`-dd/ dd/.dh `sds .ymmdsd`   
-  +MMysssssssssssssssssssssssssssssssssssssssssmMN`                                                                                         
-  /hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhy`                                                                                         
-                                                                                                                                            
-==============================================================================================================================================
+                                                                                     
+=====================================================================================================================================
 Eagle Embedded Engineering
 MISL 100BaseTX Switch Layer Firmware 
 RELEASE v1.1.12
-==============================================================================================================================================
+=====================================================================================================================================
 
 ==== KNOWN BUGS ====
-- [1 - 9/22/2016] Cascading two 100BaseTX layers may require a flush of the dynamic MAC table in order to achieve connectivity between the two layers in question.
-	As of yet, this appears to be a software bug but may have a hardware component (such as the capacitive coupling from the expansion port to P5 of
-	the KSZ8895MLUB Ethernet controller). The recommmended fix for this bug is to simply connect/disconnect the cable until the dynamic MAC table,
-	accessible through the command 'system show dyn-mac-table' shows entries for 'exp-port'. This should indicate that the system now recognizes the
-	existence of other connected nodes on a cascaded layer.
-- [2 - 9/10/2016] Use of arrow keys while typing results in PuTTY sending a carriage return (CR '\r') to the UART RX buffer and, by proxy, the
-	UARTStdioIntHandler. Future iterations of this system may include the ability to access previously used commands through the use of the
-	up and down arrows, however, a valid detection method that seperates this carriage return from the user pressing the <enter> key has not
-	yet be developed.
-- [3 - 9/22/2016] Upon reset, alignment of debug information may be slightly off due to the timing of characters received from the FTDI UART-to-USB
-	converter. This will not cause any functional impairment for the user.
-- [4 - 9/22/2016] If a command executes too quickly, the included progress bar routines may show a bar that is not entirely filled. In these cases, the
-	function did in fact fully execute and the command-line should return a message saying so.
+- [1 - 9/22/2016] Cascading two 100BaseTX layers may require a flush of the dynamic MAC table in order to achieve connectivity between the two layers in question. As of yet, this appears to be a software bug but may have a hardware component (such as the capacitive coupling from the expansion port to P5 of the KSZ8895MLUB Ethernet controller). The recommmended fix for this bug is to simply connect/disconnect the cable until the dynamic MAC table, accessible through the command 'system show dyn-mac-table' shows entries for 'exp-port'. This should indicate that the system now recognizes the existence of other connected nodes on a cascaded layer.
+- [2 - 9/10/2016] Use of arrow keys while typing results in PuTTY sending a carriage return (CR '\r') to the UART RX buffer and, by proxy, the UARTStdioIntHandler. Future iterations of this system may include the ability to access previously used commands through the use of the up and down arrows, however, a valid detection method that seperates this carriage return from the user pressing the <enter> key has not yet be developed.
+- [3 - 9/22/2016] Upon reset, alignment of debug information may be slightly off due to the timing of characters received from the FTDI UART-to-USB converter. This will not cause any functional impairment for the user.
+- [4 - 9/22/2016] If a command executes too quickly, the included progress bar routines may show a bar that is not entirely filled. In these cases, the function did in fact fully execute and the command-line should return a message saying so.
 
 ==== INTRODUCTION =====
 An embedded real-time control package to allow observability and management of four 100BaseTX ports. This system utilizes a command-line
-interface (CLI) that exposes numerous features of the on-board Ethernet Control for easy configuration. Each of the files included in this release is briefly
-described below in order to provide the reader with a high-level understanding of each module.
+interface (CLI) that exposes numerous features of the on-board Ethernet Control for easy configuration. Each of the files included in this release is briefly described below in order to provide the reader with a high-level understanding of each module.
 
 [1]==== COMMAND FUNCTIONS [command_functions] (.c/.h) ====
-	This file contains all functions called at run-time by either CLI or I2C commands. All functions that are intended to be used by the command line
-	adopt the format COM_<Function Name>, take an array of pointers-to-char, and return a boolean as the result of execution. This format must be 
-	followed in order to avoid incompatibility with	the UART interpreter task (described later in this document). Each function is described below
+	This file contains all functions called at run-time by either CLI or I2C commands. All functions that are intended to be used by the command line adopt the format COM_<Function Name>, take an array of pointers-to-char, and return a boolean as the result of execution. This format must be followed in order to avoid incompatibility with	the UART interpreter task (described later in this document). Each function is described below
 	
-	[1.1] -- Structure of New Commmands --
+[1.1] -- Structure of New Commmands --
 	If you wish provide additional functionality to the command line interface, all new functions must follow the syntax outlined below.
 	Command Line Functions:
 		Each function takes an array of pointer-to-char of size 20 (as defined by MAX_PARAMS) and returns a bool as the result of execution.
@@ -69,11 +31,7 @@ described below in order to provide the reader with a high-level understanding o
 		}
 	
 	I2C Functions:
-		Unlike functions used by the CLI, I2C commands are formatted to accept and return 8-bit values for use over SCL and SDA lines. This 
-		allows the information recieved to the easily processed since all values recieved over I2C are done so using an 8-bit packet size.
-		The commonly used return value for successful and unsuccesful commands is the same as that defined for boolean true and false
-		(0x01: Successful, 0x00: Failed). Any additional information that you wish to return to the I2C master must be done so within
-		the scope of the function itself.
+		Unlike functions used by the CLI, I2C commands are formatted to accept and return 8-bit values for use over SCL and SDA lines. This allows the information recieved to the easily processed since all values recieved over I2C are done so using an 8-bit packet size. The commonly used return value for successful and unsuccesful commands is the same as that defined for boolean true and false (0x01: Successful, 0x00: Failed). Any additional information that you wish to return to the I2C master must be done so within the scope of the function itself.
 		
 		uint8_t I2C_<FunctionName>(uint8_t params[MAX_PARAMS])
 		{
@@ -277,12 +235,10 @@ described below in order to provide the reader with a high-level understanding o
 		
 		
 [6] === LED MANAGER TASK [led_manager] (.c/.h) ====
-This simple RTOS task generates an LED task on demand that blinks a designated status LED. This task can also kill spawned tasks on-demand.
-To change which status LEDs (ports and pins) are used, modify the header file accordingly.
+This simple RTOS task generates an LED task on demand that blinks a designated status LED. This task can also kill spawned tasks on-demand. To change which status LEDs (ports and pins) are used, modify the header file accordingly.
 
 [7] === LED TASK [led_task] (.c/.h) ===
-Any RTOS task using this template will be spawned/destroyed by the LED MANAGER. Each of these tasks blinks a single LED at a provided interval.
-There is no need to modify this task as it does not directly interface with any other part of the firmware.
+Any RTOS task using this template will be spawned/destroyed by the LED MANAGER. Each of these tasks blinks a single LED at a provided interval. There is no need to modify this task as it does not directly interface with any other part of the firmware.
 
 [8] === PORT MONITORING TASK [port_monitor_task] (.c/.h) ===
 This task checks each port's interrupt flags at a pre-defined interval by querying the appropriate registers in the Ethernet Controller.
@@ -290,8 +246,7 @@ Adapting this task to other controllers requires changing the settings held in "
 sequentially and report to the user if any status change has been detected. 
 
 [9] === FREE RTOS INITIALIZATION [freertos_init] (.c/.h) ===
-This file is the main entry point for the EEE 100BaseTX firmware. Each interface is individually configured before loading any stored configuration
-from EEPROM. Each task can be enabled or disabled from freertos_init.h for debugging. 
+This file is the main entry point for the EEE 100BaseTX firmware. Each interface is individually configured before loading any stored configuration from EEPROM. Each task can be enabled or disabled from freertos_init.h for debugging. 
 		
 		
 		
