@@ -1,6 +1,9 @@
 # MISL-100BaseT-Firmware
 Firmware for the MISL 100BaseT switching layer. Provides the user with a CLI for serviceability and control. Built on the open-source FreeRTOS Real Time Operating System. This software is designed to allow full customization of the MISL 100 Base TX Ethernet switch layer which includes the Texas Instruments
 TM4C123GH6PM ARM Cortex M4F Tiva C Series Microcontroller, Microchip AA1024 EEPROM, and KSZ8895MLUB ethernet controller. For a brief overview of the project, click <a href="http://esetwiki.net/index.php?title=Eagle_Embedded_Engineering">here</a>. This project was funded by the Mobile Integrated Solutions Laboratory and the National Aeronautics and Space Administration.
+
+![3D PCB Layout](3D-BetaBoardPic.jpg?raw=true "3D PCB Layout")
+
 ##Board Specifications
 <b>Intelligence:</b> TI TM4C123GH6PM ARM Cortex M4F 80MHZ Microcontroller / Micrel KSZ8895MLUB Ethernet Controller</p>
 <p><b>Connectivity:</b> USB/I2C Configuration, 4x RJ-45 Connections</p>
