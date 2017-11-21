@@ -10,11 +10,11 @@ TM4C123GH6PM ARM Cortex M4F Tiva C Series Microcontroller, Microchip AA1024 EEPR
 <p><b>Throughput:</b> 63 Mbps (100 Mbps MAX)</p>
 <p><b>FLASH:</b> 256 KB (52 kB used by firmware) | <b>EEPROM:</b> 125 KB (AA1024) | <b>SRAM:</b> 32 kB (24 kB used by firmware)</p>
 
-================================================================================================================================
-Eagle Embedded Engineering
+___
+## Eagle Embedded Engineering
 MISL 100BaseTX Switch Layer Firmware 
 RELEASE v1.1.12
-================================================================================================================================
+___
 
 ![Console Screenshot](console.jpg?raw=true "CLI Welcome Message")
 
